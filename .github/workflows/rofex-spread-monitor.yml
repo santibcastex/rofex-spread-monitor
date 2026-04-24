@@ -28,4 +28,4 @@ jobs:
           CLAUDE_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
-        run: python scripts/rofex_monitor.py
+        run: python .github/workflows/scripts/rofex_monitor.py
