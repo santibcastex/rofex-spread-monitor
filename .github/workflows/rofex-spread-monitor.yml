@@ -1,0 +1,31 @@
+name: ROFEX Spread Monitor
+
+on:
+  schedule:
+    - cron: '*/10 9-17 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install anthropic requests python-dotenv
+      
+      - name: Run ROFEX Monitor
+        env:
+          IOL_USER: ${{ secrets.IOL_USER }}
+          IOL_PASS: ${{ secrets.IOL_PASS }}
+          CLAUDE_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: python scripts/rofex_monitor.py
